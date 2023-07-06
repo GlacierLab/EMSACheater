@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
             OpenProcess = new Button();
             ServiceSwitch = new Button();
             label1 = new Label();
@@ -71,8 +72,9 @@
             Controls.Add(label1);
             Controls.Add(ServiceSwitch);
             Controls.Add(OpenProcess);
+            Icon = (Icon)resources.GetObject("$this.Icon");
             Name = "Form1";
-            Text = "Form1";
+            Text = "EMSACheater-琴梨梨";
             ResumeLayout(false);
             PerformLayout();
         }

@@ -9,7 +9,12 @@
     <Authors>琴梨梨</Authors>
     <ApplicationManifest>app.manifest</ApplicationManifest>
     <Platforms>AnyCPU;x86</Platforms>
+    <ApplicationIcon>1.ico</ApplicationIcon>
   </PropertyGroup>
+
+  <ItemGroup>
+    <Content Include="1.ico" />
+  </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="MemorySharp" Version="1.2.0" />

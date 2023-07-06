@@ -70,9 +70,10 @@ namespace ShaderAttack
                 MSharp = new MemorySharp(GameProcess);
                 ServiceSwitch.Enabled = true;
             }
-            else {
+            else
+            {
                 MessageBox.Show("未找到游戏进程！");
-                    }
+            }
 
         }
         private void GlobalHookKeyPress(object sender, KeyPressEventArgs e)
@@ -83,7 +84,7 @@ namespace ShaderAttack
                 Hearts += e.KeyChar.ToString();
                 Beep((int)Music.Do, 300);
             }
-            if (e.KeyChar == 13&&Hearts!="")
+            if (e.KeyChar == 13 && Hearts != "")
             {
                 MSharp[0x02156854, false].Write(Int32.Parse(Hearts));
                 Hearts = "";
