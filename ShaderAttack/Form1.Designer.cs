@@ -57,12 +57,11 @@
             // 
             // label1
             // 
-            label1.AutoSize = true;
             label1.Location = new Point(12, 101);
             label1.Name = "label1";
-            label1.Size = new Size(458, 25);
+            label1.Size = new Size(776, 70);
             label1.TabIndex = 3;
-            label1.Text = "输入数字后按下回车即可修改生命，按“Q”一键满能量";
+            label1.Text = "输入数字后按下回车即可修改生命，按“Q”一键满能量，按“Shift+Q”可解决部分安全软件导致修改失败的问题";
             // 
             // Form1
             // 
@@ -76,7 +75,6 @@
             Name = "Form1";
             Text = "EMSACheater-琴梨梨";
             ResumeLayout(false);
-            PerformLayout();
         }
 
         #endregion

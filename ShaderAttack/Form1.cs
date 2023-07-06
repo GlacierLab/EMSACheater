@@ -2,6 +2,7 @@ using Binarysharp.MemoryManagement;
 using Gma.System.MouseKeyHook;
 using System.Buffers.Text;
 using System.Diagnostics;
+using System.Net;
 using System.Runtime.InteropServices;
 
 namespace ShaderAttack
@@ -12,6 +13,7 @@ namespace ShaderAttack
         private MemorySharp? MSharp;
         private IKeyboardMouseEvents? m_GlobalHook;
         private string Hearts = "";
+        private IntPtr? EnergyAddress;
 
         [DllImport("kernel32.dll")]
         private static extern int Beep(int dwFreq, int dwDuration);
@@ -93,13 +95,43 @@ namespace ShaderAttack
             }
             if (e.KeyChar == 113)
             {
+                Beep((int)Music.Re, 150);
                 FullEnergy();
-                Beep((int)Music.Re, 300);
+                Beep((int)Music.Re, 500);
+            }
+            if (e.KeyChar == 81)
+            {
+                EnergyAddress = null;
+                Beep((int)Music.Re, 150);
+                FullEnergy();
+                Beep((int)Music.Re, 500);
             }
         }
         private int FullEnergy()
         {
             bool success = false;
+            if (EnergyAddress != null)
+            {
+                try
+                {
+                    double Current = MSharp.Read<double>((nint)EnergyAddress, false);
+                    if (Current <= 1000 && Current >= 0)
+                    {
+                        Console.WriteLine("Old Address Current Value:" + Current);
+                        MSharp.Write((nint)EnergyAddress, Convert.ToDouble(1000), false);
+                        success = true;
+                        return 1;
+                    }
+                    else
+                    {
+                        throw new Exception("Ridiculous Number!");
+                    }
+                }
+                catch (Exception e)
+                {
+                    Console.WriteLine("Old Address Unavaliable!");
+                }
+            }
             try
             {
                 IntPtr address = MSharp.Read<IntPtr>(MSharp["Em_android.exe"].BaseAddress + 0x00034f28, false);
@@ -114,9 +146,18 @@ namespace ShaderAttack
                 Console.WriteLine(Convert.ToString(address, 16));
                 address = MSharp.Read<IntPtr>(address + 0x2c, false);
                 Console.WriteLine(Convert.ToString(address, 16));
-                Console.WriteLine(MSharp.Read<double>(address + 0xf0, false)); ;
-                MSharp.Write(address + 0xf0, Convert.ToDouble(1000), false);
-                success = true;
+                double Current = MSharp.Read<double>(address + 0xf0, false);
+                if (Current <= 1000 && Current >= 0)
+                {
+                    Console.WriteLine("Current Value:" + Current);
+                    MSharp.Write(address + 0xf0, Convert.ToDouble(1000), false);
+                    success = true;
+                    EnergyAddress = address + 0xf0;
+                }
+                else
+                {
+                    throw new Exception("Ridiculous Number!");
+                }
             }
             catch (Exception e)
             {
