@@ -60,15 +60,15 @@
             label1.AutoSize = true;
             label1.Location = new Point(12, 101);
             label1.Name = "label1";
-            label1.Size = new Size(297, 25);
+            label1.Size = new Size(458, 25);
             label1.TabIndex = 3;
-            label1.Text = "输入数字后按下回车即可修改生命";
+            label1.Text = "输入数字后按下回车即可修改生命，按“Q”一键满能量";
             // 
             // Form1
             // 
             AutoScaleDimensions = new SizeF(10F, 25F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(800, 450);
+            ClientSize = new Size(800, 180);
             Controls.Add(label1);
             Controls.Add(ServiceSwitch);
             Controls.Add(OpenProcess);

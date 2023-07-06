@@ -1,5 +1,6 @@
 using Binarysharp.MemoryManagement;
 using Gma.System.MouseKeyHook;
+using System.Buffers.Text;
 using System.Diagnostics;
 using System.Runtime.InteropServices;
 
@@ -90,8 +91,46 @@ namespace ShaderAttack
                 Hearts = "";
                 Beep((int)Music.Do2, 800);
             }
+            if (e.KeyChar == 113)
+            {
+                FullEnergy();
+                Beep((int)Music.Re, 300);
+            }
         }
-
+        private int FullEnergy()
+        {
+            bool success = false;
+            try
+            {
+                IntPtr address = MSharp.Read<IntPtr>(MSharp["Em_android.exe"].BaseAddress + 0x00034f28, false);
+                Console.WriteLine(Convert.ToString(address, 16));
+                address = MSharp.Read<IntPtr>(address + 0x1c, false);
+                Console.WriteLine(Convert.ToString(address, 16));
+                address = MSharp.Read<IntPtr>(address + 0x30, false);
+                Console.WriteLine(Convert.ToString(address, 16));
+                address = MSharp.Read<IntPtr>(address + 0x4, false);
+                Console.WriteLine(Convert.ToString(address, 16));
+                address = MSharp.Read<IntPtr>(address + 0xc0, false);
+                Console.WriteLine(Convert.ToString(address, 16));
+                address = MSharp.Read<IntPtr>(address + 0x2c, false);
+                Console.WriteLine(Convert.ToString(address, 16));
+                Console.WriteLine(MSharp.Read<double>(address + 0xf0, false)); ;
+                MSharp.Write(address + 0xf0, Convert.ToDouble(1000), false);
+                success = true;
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine(e.Message);
+            }
+            if (!success)
+            {
+                return FullEnergy();
+            }
+            else
+            {
+                return 1;
+            }
+        }
         private void AddHeart_Click(object sender, EventArgs e)
         {
             MSharp[0x02156854, false].Write(8);
