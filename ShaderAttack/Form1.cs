@@ -89,7 +89,7 @@ namespace ShaderAttack
             }
             if (e.KeyChar == 13 && Hearts != "")
             {
-                MSharp[0x02156854, false].Write(Int32.Parse(Hearts));
+                MSharp[0x025A6854, false].Write(Int32.Parse(Hearts));
                 Hearts = "";
                 Beep((int)Music.Do2, 800);
             }
